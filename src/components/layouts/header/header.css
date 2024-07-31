@@ -1,0 +1,122 @@
+.header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 20;
+    background-color: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+}
+
+.header__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.header__nav-links {
+    display: flex;
+    gap: 1rem;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.header__nav-links__link {
+    margin: 0 10px;
+    font-weight: 700;
+    transition: color 0.3s;
+    text-transform: capitalize;
+    cursor: pointer;
+    position: relative;
+    padding: 0.5rem 1rem;
+}
+
+.header__nav-links__link:hover {
+    color: #ccc;
+    background-color: #333;
+    border-radius: 5px;
+}
+
+.header__nav-user__section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    text-transform: capitalize;
+}
+
+.header__nav-user__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header__nav-user__icon img {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Burger menu styles */
+.header__nav-burger__menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.header__nav-burger__menu-icon div {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+/* Mobile view */
+@media (max-width: 960px) {
+    .header__nav-links {
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #1f1f1f;
+        display: none;
+        padding: 1rem;
+        gap: 0.5rem;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .header__nav--active .header__nav-links {
+        display: flex;
+    }
+
+    .header__nav-burger__menu {
+        display: flex;
+    }
+
+    .header__nav-burger__menu--toggle .header__nav-burger__menu-icon div:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .header__nav-burger__menu--toggle .header__nav-burger__menu-icon div:nth-child(2) {
+        opacity: 0;
+    }
+
+    .header__nav-burger__menu--toggle .header__nav-burger__menu-icon div:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+}
+
+/* Ensuring the navigation links look good on all screen sizes */
+@media (min-width: 961px) {
+    .header__nav-links {
+        display: flex;
+    }
+}

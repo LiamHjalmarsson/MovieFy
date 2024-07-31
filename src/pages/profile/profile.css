@@ -1,0 +1,124 @@
+.profile {
+    padding: 12rem 6rem;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-direction: column;
+}
+
+.profile__page__avatar {
+    position: relative;
+}
+
+.profile__page__avatar img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile__page__avatar__form>label,
+.profile__page__avatar__follow {
+    position: absolute;
+    top: -15px;
+    right: -20px;
+    padding: 1.5rem;
+    border-radius: 50%;
+    background: #E6A526;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: #E6A526;
+    color: whitesmoke;
+}
+
+.profile__page__avatar__edith {
+    position: absolute;
+    top: -15px;
+    left: -20px;
+    padding: 1.5rem;
+    border-radius: 50%;
+    background: #E6A526;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    border: #E6A526;
+    color: whitesmoke;
+}
+
+.profile__page__user {
+    text-align: center;
+    display: flex;
+    gap: 2rem;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    text-transform: capitalize;
+}
+
+.profile__page__user>i {
+    position: absolute;
+    right: -10rem;
+    font-size: x-large;
+    font-weight: 700;
+}
+
+.profile__page__form {
+    padding: 2rem;
+    background: #484f58;
+    display: flex;
+    flex-direction: column;
+    margin: 0 1rem;
+    max-width: 600px;
+    width: 100%;
+    min-width: 300px;
+    gap: 1rem;
+    color: whitesmoke;
+    border-radius: 1rem;
+}
+
+.profile__page__form input {
+    letter-spacing: 0.1rem;
+    height: 48px;
+    border-radius: 0.5rem;
+    padding-left: 1rem;
+    font-size: 15px;
+    background: #141619;
+    border: none;
+    outline: none;
+    color: #fff;
+}
+
+.profile__page__form div {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.profile__page__details {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.profile__page__details__movies {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 2rem;
+    padding: 2rem;
+    width: 80%;
+}

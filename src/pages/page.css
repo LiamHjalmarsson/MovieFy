@@ -1,0 +1,21 @@
+@import url("./auth/auth.css");
+@import url("./home/home.css");
+@import url("./movies/movies.css");
+@import url("./movie/movie.css");
+@import url("./profile/profile.css");
+@import url("./users/users.css");
+
+@keyframes pageSlideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.page__slideIn {
+    animation: pageSlideIn 600ms ease-out forwards;
+}

@@ -1,0 +1,48 @@
+.users {
+    min-height: 100vh;
+    padding: 8rem 6rem;
+}
+
+.users__container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    width: 100%;
+}
+
+.users__user {
+    cursor: pointer;
+    position: relative;
+    padding: 2rem;
+}
+
+
+.users__user > div {
+    border-radius: 1rem;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    background: #363B42;
+    box-shadow: 0 4px 8px rgba(173, 171, 171, 0.1);
+}
+
+.users__avatar {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    top: -15px;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.users__name {
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: whitesmoke;
+    text-transform: capitalize;
+}

@@ -2,7 +2,6 @@
     cursor: pointer;
     height: 300px;
     min-width: 200px;
-    /* flex-grow: 1; */
     overflow: hidden;
     border-radius: 0.5rem;
     position: relative;
@@ -13,15 +12,14 @@
 }
 
 .movie__card-img {
-    /* width: 100%; */
     height: 100%;
+    opacity: 80%;
     object-fit: cover;
-    transition: transform 300ms;
+    transition: transform 300ms ease-in-out;
 }
 
 .movie__card-img:hover {
     transform: scale(1.05);
-
 }
 
 /* Styling for open movie card */
@@ -47,6 +45,10 @@
     padding: 1.5rem;
     gap: 1.5rem;
     border-bottom: 1px solid #333; 
+}
+
+.movie__card-heading__title {
+    max-width: 600px;
 }
 
 .movie__card-heading__release {

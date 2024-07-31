@@ -74,9 +74,9 @@ const Title = (movie) => {
     title.classList.add("movie__card-heading");
 
     title.innerHTML = `
-        <div>
+        <div class="movie__card-heading__title">
             <h1>${movie.title}</h1>
-            <p class="heading__release">${movie.release_date}</p>
+            <p class="movie__card-heading__release">${movie.release_date}</p>
         </div>
         <div class="movie__card-heading__buttons">
         </div>

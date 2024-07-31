@@ -35,12 +35,6 @@
     padding: 0.5rem 1rem;
 }
 
-.header__nav-links__link:hover {
-    color: #ccc;
-    background-color: #333;
-    border-radius: 5px;
-}
-
 .header__nav-user__section {
     display: flex;
     justify-content: center;

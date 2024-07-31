@@ -11,10 +11,10 @@ use MoviesController\MoviesController;
 
 switch ($_GET['action']) {
     case "addUserMovie":
-        MoviesController::addUserMovie($pdo);
+        MoviesController::addUserMovieStatus($pdo);
         break;
     case "removeUserMovie":
-        MoviesController::deleteUserMovie($pdo);
+        MoviesController::deleteUserMovieStatus($pdo);
         break;
     case "getMovieStatus":
         MoviesController::getMovieStatus($pdo);

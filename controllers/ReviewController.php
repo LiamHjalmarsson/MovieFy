@@ -40,12 +40,12 @@ class ReviewController
             }
 
             if ($errors) {
-                sendJSON($errors, 400);
+                sendJSON(["error" => $errors], 400);
             }
 
             $result = Review::userAddReview($pdo, $user_id, $movie_id, $review, $rating);
 
-            sendJSON(["success" => "Review added successfully"]);
+            sendJSON(["success" => "Review posted"]);
         } catch (PDOException $e) {
             sendJSON(["error" => $e->getMessage()], 500);
         }
@@ -81,11 +81,9 @@ class ReviewController
         $movie_id = $_GET["movie_id"];
 
         try {
-
-            $errors = [];
             $result = Review::getUserReview($pdo, $user_id, $movie_id);
 
-            sendJSON(["success" => "win", $result]);
+            sendJSON($result);
         } catch (PDOException $e) {
             sendJSON(["error" => $e->getMessage()], 500);
         }

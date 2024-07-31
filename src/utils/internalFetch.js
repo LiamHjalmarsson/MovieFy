@@ -1,3 +1,5 @@
+import showNotification from "../components/notification/Notification.js";
+
 const fetchDataInternal = async (path) => {
     try {
         let response = await fetch(`routes/${path}`);
@@ -9,6 +11,7 @@ const fetchDataInternal = async (path) => {
         return await response.json();
     } catch (error) {
         console.error('Fetch error:', error);
+        showNotification(error);
     }
 };
 

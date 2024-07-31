@@ -1,7 +1,7 @@
 import { Form } from "../../pages/movie/LeaveReview.js";
 import MoviePage from "../../pages/movie/MoviePage.js";
 import { UserStatusMovieHandler } from "../../utils/events.js";
-import { fetchUserMovieStatus } from "../../utils/internalFetch.js";
+import { fetchReview, fetchUserMovieStatus } from "../../utils/internalFetch.js";
 import showNotification from "../notification/Notification.js";
 
 const Button = (buttonCLass) => {
@@ -11,15 +11,23 @@ const Button = (buttonCLass) => {
     return button;
 }
 
-export const LeaveReviewButton = (movie) => {
+export const LeaveReviewButton = async (movie) => {
+    let reviewed = await fetchReview(movie.id);
+
     let button = Button("button--review");
-    button.innerHTML = `<i class="fa-regular fa-star"></i>`;
+    let buttonIcon = reviewed ? `<i class="fa-solid fa-square-pen"></i>` : `<i class="fa-regular fa-pen-to-square"></i>`;
+
+    button.innerHTML = buttonIcon;
 
     button.addEventListener("click", () => {
         let backdropContainer = document.createElement('div');
         backdropContainer.classList.add("module__backdrop");
         document.getElementById("module").append(backdropContainer);
 
+        if (reviewed) {
+
+        } 
+            
         let form = Form(movie);
         backdropContainer.appendChild(form);
 
@@ -42,9 +50,8 @@ export const WatchLaterButton = async (movie) => {
     let status = await fetchUserMovieStatus(movie.id);
     let button = Button("button--watchLater");
 
-    button.innerHTML = `${status.includes("watch_later")
-        ? `<i class="fa-solid fa-bookmark"></i>`
-        : `<i class="fa-regular fa-bookmark"></i>`}`;
+    let buttonIcon = status.includes("watch_later") ? `<i class="fa-solid fa-bookmark"></i>` : `<i class="fa-regular fa-bookmark"></i>`;
+    button.innerHTML = buttonIcon;
 
     button.addEventListener("click", async () => {
         if (status.includes("watch_later")) {
@@ -95,9 +102,31 @@ export const GoToMovieButton = (movie) => {
     return button;
 };
 
-export const LikeMovieButton = (movie) => {
+export const LikeMovieButton = async (movie) => {
+    let status = await fetchUserMovieStatus(movie.id);
     let button = Button("button--like");
-    button.innerHTML = `<i class="fa-regular fa-heart"></i>`;
+
+    console.log(status);
+
+    let buttonIcon = status.includes("recommended") ? `<i class="fa-solid fa-heart"></i>` : `<i class="fa-regular fa-heart"></i>`;
+    button.innerHTML = buttonIcon;
+
+    button.addEventListener("click", async () => {
+        if (status.includes("recommended")) {
+            let result = await UserStatusMovieHandler(movie.id, "recommended", "remove");
+            button.innerHTML = `<i class="fa-regular fa-heart"></i>`;
+
+            showNotification({ success: movie.title + " " + result.success });
+
+            status.splice(status.indexOf("recommended"), 1);
+        } else {
+            let result = await UserStatusMovieHandler(movie.id, "recommended", "add");
+            button.innerHTML = `<i class="fa-solid fa-heart"></i>`;
+
+            showNotification({ success: movie.title + " " + result.success });
+            status.push("recommended");
+        }
+    });
 
     return button;
 }

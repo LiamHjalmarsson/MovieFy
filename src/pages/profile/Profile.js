@@ -10,8 +10,6 @@ const Profile = async (id) => {
     let response = await fetch(`routes/userRoute.php?action=getUser&id=${id}`);
     let recourse = await response.json();
 
-    console.log(recourse);
-
     let app = document.getElementById("app");
     app.innerHTML = "";
 
@@ -136,10 +134,8 @@ const avatarUpdateHandler = async (e, user) => {
                 body: formData
             });
 
-            console.log(response);
             let result = await response.json();
 
-            console.log(result);
             if (response.ok) {
                 document.querySelector(".profile__page__avatar img").src = result.user.avatar;
                 user.avatar = result.user.avatar;

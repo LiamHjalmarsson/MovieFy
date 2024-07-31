@@ -42,7 +42,7 @@ const OpenMovie = async (movie) => {
 
     let goToButton = GoToMovieButton(movie);
     let watchLaterButton = await WatchLaterButton(movie);
-    let likedButton = LikeMovieButton();
+    let likedButton = await LikeMovieButton(movie);
 
     title.querySelector(".movie__card-heading__buttons").append(watchLaterButton, likedButton, goToButton);
 }

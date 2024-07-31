@@ -55,7 +55,7 @@ class Movies
     }
     
     // CREATE
-    public static function updateMovieStatus(object $pdo, $userId, $movieId, $status)
+    public static function addMovieStatus(object $pdo, $userId, $movieId, $status)
     {
         $table = "";
 
@@ -82,7 +82,7 @@ class Movies
         return $statement->execute();
     }
 
-    public static function deleteMovieStatus(object $pdo, $userId, $movieId, $status)
+    public static function removeMovieStatus(object $pdo, $userId, $movieId, $status)
     {
         $table = "";
 

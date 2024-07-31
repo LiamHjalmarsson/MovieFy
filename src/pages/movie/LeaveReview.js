@@ -42,26 +42,24 @@ export const Form = (movie) => {
             rating: selectedRating
         };
 
-        try {
-            let response = await fetch("../routes/reviewRoute.php?action=addReviews", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            });
+        let response = await fetch("routes/reviewRoute.php?action=addReview", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
 
-            let result = await response.json();
-            showNotification(result);
+        let result = await response.json();
 
-            if (response.ok) {
-                await refreshReviews(movie);
-            }
-            
-            document.querySelector(".module__backdrop--close").remove();
+        showNotification(result);
+
+        if (response.ok) {
+            await refreshReviews(movie);
+
+            document.querySelector(".module__backdrop").remove();
             form.remove();
             document.body.style.overflow = '';
-        } catch (error) {
-            showNotification(error);
         }
+
     });
 
     form.querySelector("#cancelReview").addEventListener("click", () => {
@@ -75,8 +73,11 @@ export const Form = (movie) => {
         let getReviewsResponse = await fetch(`../routes/reviewRoute.php?action=getMovieReviews&movie_id=${movie.id}`);
         let reviewData = await getReviewsResponse.json();
 
-        document.querySelector(".movie-reviews").remove();
-        document.querySelector(".movie-container").appendChild(Reviews(reviewData), Details(movie));
+        if (document.querySelector(".movie-reviews")) {
+            document.querySelector(".movie-reviews").remove();
+        }
+
+        document.querySelector(".movie-container").appendChild(Reviews(reviewData));
     };
 
     return form;

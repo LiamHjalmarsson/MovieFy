@@ -1,3 +1,5 @@
+import showNotification from "../components/notification/Notification.js";
+
 const fetchData = async (path) => {
     try {
         let response = await fetch(`https://api.themoviedb.org/3/${path}?api_key=61abd3b74d3f82c9dd4f0647ff31fb34`);
@@ -9,6 +11,7 @@ const fetchData = async (path) => {
         return await response.json();
     } catch (error) {
         console.error('Fetch error:', error);
+        showNotification(error);
     }
 };
 

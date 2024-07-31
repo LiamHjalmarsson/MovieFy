@@ -21,7 +21,7 @@ class MoviesController
         }
     }
 
-    public static function addUserMovie($pdo)
+    public static function addUserMovieStatus($pdo)
     {
         $data = json_decode(file_get_contents("php://input"), true);
         $user_id = $_SESSION['user_id'];
@@ -45,7 +45,7 @@ class MoviesController
                 sendJSON($errors, 400);
             }
             
-            $results = Movies::updateMovieStatus($pdo, $user_id, $movie_id, $status);
+            $results = Movies::addMovieStatus($pdo, $user_id, $movie_id, $status);
             
             sendJSON(["success" => "have been added!"]);
         } catch (PDOException $e) {
@@ -53,7 +53,7 @@ class MoviesController
         }
     }
 
-    public static function deleteUserMovie($pdo)
+    public static function deleteUserMovieStatus($pdo)
     {
         $data = json_decode(file_get_contents("php://input"), true);
 
@@ -80,7 +80,7 @@ class MoviesController
                 sendJSON($errors, 400);
             }
             
-            $results = Movies::deleteMovieStatus($pdo, $user_id, $movie_id, $status);
+            $results = Movies::removeMovieStatus($pdo, $user_id, $movie_id, $status);
 
             sendJSON(["success" => "Movie have been removed successfully"]);
         } catch (PDOException $e) {

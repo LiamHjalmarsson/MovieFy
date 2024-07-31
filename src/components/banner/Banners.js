@@ -73,13 +73,13 @@ const bannerButtons = async (banner, movie) => {
     let movieUrl = path.slice(1).replace(/_/g, ' ');
 
     let watchLaterButton = await WatchLaterButton(movie);
-    let liked = LikeMovieButton();
+    let liked = await LikeMovieButton(movie);
     
     if (movieUrl !== movie.title) {
         let goToButton = GoToMovieButton(movie);
         banner.querySelector(".button__container").append(watchLaterButton, liked, goToButton);
     } else {
-        let leaveReview = LeaveReviewButton(movie);
+        let leaveReview = await LeaveReviewButton(movie);
         banner.querySelector(".button__container").append(watchLaterButton, leaveReview, liked);
     }
 }

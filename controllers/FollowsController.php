@@ -21,9 +21,8 @@ class FollowController
             }
 
             $result = Follows::followUser($pdo, $user_id, $followed_userId);
-            $message = "Followed successfully";
 
-            sendJSON(["success" => $message]);
+            sendJSON(["success" => "Followed"]);
         } catch (PDOException $e) {
             sendJSON(["errors" => $e->getMessage()], 500);
         }

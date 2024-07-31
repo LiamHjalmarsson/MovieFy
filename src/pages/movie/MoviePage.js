@@ -1,16 +1,16 @@
 import { Banner } from "../../components/banner/Banners.js";
 import MovieCard from "../../components/movie/MovieCard.js";
 import Trailer from "../../components/video/Trailer.js";
-import { fetchMovie, fetchMoviePosters, fetchSimilar, fetchVideo } from "../../utils/fetchData.js";
+import { fetchExternalMovie, fetchExternalMoviePoster, fetchExternalMovieVideo, fetchExternalSimilarMovies } from "../../utils/externalFetch.js";
+import { fetchMovieReviews } from "../../utils/internalFetch.js";
 
 const MoviePage = async (id) => {
-    let movieData = await fetchMovie(id);
-    let getReviewsResponse = await fetch(`routes/reviewRoute.php?action=getMovieReviews&movie_id=${id}`);
-    let reviewData = await getReviewsResponse.json();
-    let posters = await fetchMoviePosters(id);
-    let video = await fetchVideo(id);
+    let movieData = await fetchExternalMovie(id);
+    let reviews = await fetchMovieReviews(id);
+    let posters = await fetchExternalMoviePoster(id);
+    let video = await fetchExternalMovieVideo(id);
 
-    let similar = await fetchSimilar(id);
+    let similar = await fetchExternalSimilarMovies(id);
     let app = document.getElementById("app");
 
     app.innerHTML = "";
@@ -31,8 +31,8 @@ const MoviePage = async (id) => {
 
     page.append(Details(movieData, posters, video), container);
 
-    if (reviewData.length > 0) {
-        container.append(similarContainer, Reviews(reviewData));
+    if (reviews.length > 0) {
+        container.append(similarContainer, Reviews(reviews));
     } else {
         container.append(similarContainer);
     }

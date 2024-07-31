@@ -15,7 +15,7 @@ class MoviesController
 
         try {
             $status = Movies::getUserMovieStatus($pdo, $user_id, $movie_id);
-            sendJSON(["status" => $status]);
+            sendJSON($status);
         } catch (PDOException $e) {
             sendJSON(["error" => $e->getMessage()], 500);
         }

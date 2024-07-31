@@ -1,10 +1,10 @@
 import Banners from "../../components/banner/Banners.js";
 import MovieCard from "../../components/movie/MovieCard.js";
 import Button from "../../components/ui/Button.js";
-import { fetchMovies } from "../../utils/fetchData.js";
+import { fetchExternalMovies } from "../../utils/externalFetch.js";
 
 const MoviesPage = async (moviePath, initialPage = 1) => {
-    let moviesData = await fetchMovies(moviePath);
+    let moviesData = await fetchExternalMovies(moviePath);
 
     let app = document.getElementById('app');
     app.innerHTML = "";

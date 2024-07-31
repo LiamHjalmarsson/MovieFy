@@ -65,7 +65,7 @@ const loginHandler = () => {
 
         let recourse = await response.json();
 
-        handleResponse(response, recourse, "login");
+        handleResponse(response, recourse);
 
         if (response.ok) {
             document.body.style.overflow = "";

@@ -3,7 +3,7 @@ import AuthPage from "../pages/auth/AuthPage.js";
 import { clearUser } from "../state/userState.js";
 
 // Handles the users movie state watched, liked etc...
-export const UserMovieHandler = async (id, status, action) => {
+export const UserStatusMovieHandler = async (id, status, action) => {
     let data = {
         movie_id: id,
         status,

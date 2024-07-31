@@ -1,7 +1,7 @@
 import { Form } from "../../pages/movie/LeaveReview.js";
 import MoviePage from "../../pages/movie/MoviePage.js";
-import { UserMovieHandler } from "../../utils/events.js";
-import { fetchMovieStatus } from "../../utils/fetchData.js";
+import { UserStatusMovieHandler } from "../../utils/events.js";
+import { fetchUserMovieStatus } from "../../utils/internalFetch.js";
 import showNotification from "../notification/Notification.js";
 
 const Button = (buttonCLass) => {
@@ -39,7 +39,7 @@ export const LeaveReviewButton = (movie) => {
 };
 
 export const WatchLaterButton = async (movie) => {
-    let status = await fetchMovieStatus(movie.id);
+    let status = await fetchUserMovieStatus(movie.id);
     let button = Button("button--watchLater");
 
     button.innerHTML = `${status.includes("watch_later")
@@ -48,14 +48,14 @@ export const WatchLaterButton = async (movie) => {
 
     button.addEventListener("click", async () => {
         if (status.includes("watch_later")) {
-            let result = await UserMovieHandler(movie.id, "watch_later", "remove");
+            let result = await UserStatusMovieHandler(movie.id, "watch_later", "remove");
             button.innerHTML = `<i class="fa-regular fa-bookmark"></i>`;
 
             showNotification({ success: movie.title + " " + result.success });
 
             status.splice(status.indexOf("watch_later"), 1);
         } else {
-            let result = await UserMovieHandler(movie.id, "watch_later", "add");
+            let result = await UserStatusMovieHandler(movie.id, "watch_later", "add");
 
             button.innerHTML = `<i class="fa-solid fa-bookmark"></i>`;
 

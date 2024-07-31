@@ -1,7 +1,8 @@
 import Banners from "../../components/banner/Banners.js";
 import Loading from "../../components/loading/Loading.js";
 import MovieCard from "../../components/movie/MovieCard.js";
-import { fetchMovies } from "../../utils/fetchData.js";
+import { fetchExternalMovies } from "../../utils/externalFetch.js";
+import { fetchFollowing, fetchUsers } from "../../utils/internalFetch.js";
 import { slide } from "../../utils/slide.js";
 import Profile from "../profile/Profile.js";
 
@@ -12,9 +13,9 @@ const HomePage = async () => {
     // let loading = Loading();
 
     let [topRatedMovies, upcomingMovies, nowPlayingMovies] = await Promise.all([
-        fetchMovies("top_rated"),
-        fetchMovies("now_playing"),
-        fetchMovies("upcoming"),
+        fetchExternalMovies("top_rated"),
+        fetchExternalMovies("now_playing"),
+        fetchExternalMovies("upcoming"),
     ]);
 
     let home = document.createElement('div');
@@ -41,13 +42,10 @@ const HomePage = async () => {
 };
 
 const FollowingsBar = async () => {
-    let responseFollows = await fetch(`routes/followsRoute.php?action=userFollowing`);
-    let allUsersResponse = await fetch(`routes/userRoute.php?action=getAll`);
+    let following = await fetchFollowing();
+    let allUsers = await fetchUsers();
 
-    let follows = await responseFollows.json();
-    let allUsers = await allUsersResponse.json();
-
-    if (follows.length > 0) {
+    if (following.length > 0) {
         let followingsContainer = document.createElement("div");
         followingsContainer.classList.add("home__followings");
 
@@ -57,26 +55,26 @@ const FollowingsBar = async () => {
         followingsContainer.append(followingsWrapper);
 
         allUsers.forEach(user => {
-            follows.forEach(following => {
-                if (following.followed_user === user.id) {
-                    let followingElement = document.createElement("div");
-                    followingElement.classList.add("home__followings-user");
+            following.forEach(follow => {
+                if (follow.followed_user === user.id) {
+                    let followElement = document.createElement("div");
+                    followElement.classList.add("home__followings-user");
 
                     let avatar = user.avatar || "../../../src/assets/default/deafultuser.png";
                     
-                    followingElement.innerHTML = `
+                    followElement.innerHTML = `
                         <img src=${avatar} class="home__followings-avatar" />
                         <p>
                             ${user.username}
                         </p>
                     `;
 
-                    followingElement.addEventListener("click", async () => {
+                    followElement.addEventListener("click", async () => {
                         window.history.pushState({}, "", `/${user.username}`);
-                        await Profile(following.followed_user);
+                        await Profile(follow.followed_user);
                     });
 
-                    followingsWrapper.append(followingElement);
+                    followingsWrapper.append(followElement);
                 }
             });
         })

@@ -1,4 +1,4 @@
-import { fetchMovieCredits, fetchProviders, fetchVideo } from "../../utils/fetchData.js";
+import { fetchExternalMovieCredits, fetchExternalMovieVideo } from "../../utils/externalFetch.js";
 import { GoToMovieButton, LikeMovieButton, WatchLaterButton } from "../buttons/Buttons.js";
 import { LoadingImage } from "../loading/Loading.js";
 import Image from "../ui/image.js";
@@ -28,7 +28,7 @@ const OpenMovie = async (movie) => {
     container.classList.add("movie__card-open");
     backdrop.append(container);
 
-    let video = await fetchVideo(movie.id);
+    let video = await fetchExternalMovieVideo(movie.id);
 
     if (video) {
         let trailer = Trailer(video.key);
@@ -103,7 +103,6 @@ const MovieDetails = async (movie) => {
         </div>
     `;
 
-    // let streamProviders = await Providers(movie.id);
     let cast = await CastMembers(movie.id);
 
     details.append(cast);
@@ -112,7 +111,7 @@ const MovieDetails = async (movie) => {
 };
 
 export const CastMembers = async (id) => {
-    let castMembersData = await fetchMovieCredits(id);
+    let castMembersData = await fetchExternalMovieCredits(id);
 
     let castMembers = document.createElement("div");
     castMembers.classList.add("movie__card-details__cast");
@@ -133,29 +132,6 @@ export const CastMembers = async (id) => {
     }
 
     return castMembers;
-};
-
-export const Providers = async (id) => {
-    let providersData = await fetchProviders(id);
-
-    let streamProviders = document.createElement("div");
-    streamProviders.classList.add("stream");
-    streamProviders.innerHTML = `
-        <h2>Buy or Rent</h2>
-        <div></div>
-    `;
-
-    if (providersData && providersData.buy) {
-        providersData.buy.slice(0, 6).forEach(provider => {
-            let providerImage = `https://media.themoviedb.org/t/p/original/${provider.logo_path}`;
-            let imageIcon = ImageIcon(providerImage, provider.provider_name);
-            streamProviders.querySelector("div").append(imageIcon);
-        });
-    } else {
-        streamProviders.querySelector("div").innerHTML = "<p>No providers available</p>";
-    }
-
-    return streamProviders;
 };
 
 export default MovieCard;

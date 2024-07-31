@@ -2,7 +2,7 @@ import MovieCard from "../../components/movie/MovieCard.js";
 import showNotification from "../../components/notification/Notification.js";
 import { clearUser, getUser, setUser } from "../../state/userState.js";
 import { UserFollowedHandler } from "../../utils/events.js";
-import { fetchMovie } from "../../utils/fetchData.js";
+import { fetchExternalMovie } from "../../utils/externalFetch.js";
 import AuthPage from "../auth/AuthPage.js";
 
 const Profile = async (id) => {
@@ -113,7 +113,7 @@ const showWatchedMovies = async (watched_movies) => {
 
     watched_movies.forEach(async (movie, index) => {
         if (index <= 10) {
-            let recourse = await fetchMovie(movie.movie_id);
+            let recourse = await fetchExternalMovie(movie.movie_id);
             let movieCard = MovieCard(recourse);
 
             document.querySelector(".profile__page__details__movies").append(movieCard);

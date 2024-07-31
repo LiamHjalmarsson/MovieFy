@@ -1,4 +1,4 @@
-import { fetchMoviePoster } from "../../utils/fetchData.js";
+import { fetchExternalMoviePoster } from "../../utils/externalFetch.js";
 import { initializeSlider } from "../../utils/slide.js";
 import { GoToMovieButton, LeaveReviewButton, LikeMovieButton, WatchLaterButton } from "../buttons/Buttons.js";
 
@@ -26,13 +26,13 @@ const Banners = async (movies) => {
 }
 
 export const Banner = async (movie) => {
-    let imageData = await fetchMoviePoster(movie.id);
+    let imageData = await fetchExternalMoviePoster(movie.id);
 
     let banner = document.createElement('div');
     banner.classList.add("banners__banner");
 
     banner.innerHTML = `
-        <img src="https://image.tmdb.org/t/p/original${imageData}" alt="${movie.title}" class="banners__banner-image"/>
+        <img src="https://image.tmdb.org/t/p/original${imageData[0].file_path}" alt="${movie.title}" class="banners__banner-image"/>
 
         <div class="banners__banner-overlay"></div>
 

@@ -24,28 +24,29 @@
     position: absolute;
     top: -15px;
     right: -20px;
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: 50%;
     background: #E6A526;
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     border: #E6A526;
     color: whitesmoke;
+    font-size: 16px;
 }
 
 .profile__page__avatar__edith {
     position: absolute;
     top: -15px;
     left: -20px;
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: 50%;
     background: #E6A526;
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -53,6 +54,7 @@
     outline: none;
     border: #E6A526;
     color: whitesmoke;
+    font-size: 16px;
 }
 
 .profile__page__user {
@@ -68,7 +70,6 @@
 .profile__page__user>i {
     position: absolute;
     right: -10rem;
-    font-size: x-large;
     font-weight: 700;
 }
 

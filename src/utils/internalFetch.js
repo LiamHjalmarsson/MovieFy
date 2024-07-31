@@ -39,3 +39,7 @@ export const fetchFollowing = async () => {
 export const fetchUsers = async () => {
     return await fetchDataInternal(`userRoute.php?action=getAll`);
 }
+
+export const fetchUser = async (id) => {
+    return await fetchDataInternal(`userRoute.php?action=getUser&id=${id}`);
+}

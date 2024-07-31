@@ -54,6 +54,19 @@ class Movies
         return $result;
     }
     
+
+    public static function getUserLiked(object $pdo, $userId)
+    {
+        $query = "SELECT movie_id FROM recommended_movies WHERE user_id = :user_id;";
+
+        $statement = $pdo->prepare($query);
+        $statement->bindParam(":user_id", $userId);
+        $statement->execute();
+
+        $result = $statement->fetchAll();
+        return $result;
+    }
+    
     // CREATE
     public static function addMovieStatus(object $pdo, $userId, $movieId, $status)
     {

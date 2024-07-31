@@ -3,13 +3,14 @@ import showNotification from "../../components/notification/Notification.js";
 import { clearUser, getUser, setUser } from "../../state/userState.js";
 import { UserFollowedHandler } from "../../utils/events.js";
 import { fetchExternalMovie } from "../../utils/externalFetch.js";
+import { fetchUser } from "../../utils/internalFetch.js";
 import AuthPage from "../auth/AuthPage.js";
 
 const Profile = async (id) => {
     let { user } = getUser();
-    let response = await fetch(`routes/userRoute.php?action=getUser&id=${id}`);
-    let recourse = await response.json();
+    let recourse = await fetchUser(id);
 
+    console.log(recourse);
     let app = document.getElementById("app");
     app.innerHTML = "";
 
@@ -22,6 +23,7 @@ const Profile = async (id) => {
 
         document.getElementById("follow").addEventListener("click", async (e) => UserFollowedHandler(recourse));
         document.getElementById("watchButton").addEventListener("click", () => showWatchedMovies(recourse.watched_movies));
+        document.getElementById("likedButton").addEventListener("click", async () => showLikedMovies(recourse.liked_movies));
 
     } else {
         loggedInUser(page, recourse);
@@ -29,6 +31,7 @@ const Profile = async (id) => {
         document.getElementById("avatarUpdate").addEventListener("change", async (e) => avatarUpdateHandler(e, recourse));
         document.getElementById("editDetailsButton").addEventListener("click", (e) => edithUserHandler(e, recourse));
         document.getElementById("watchButton").addEventListener("click", () => showWatchedMovies(recourse.watched_movies));
+        document.getElementById("likedButton").addEventListener("click", async () => showLikedMovies(recourse.liked_movies));
     }
 }
 
@@ -67,10 +70,17 @@ const loggedInUser = (page, user) => {
         </form>
 
         <div class="button__container">
-            <button id="followersButton">Followers ${user.followers_count}</button>
-            <button id="followingButton">Following ${user.following_count}</button>
-            <button id="watchButton">
+            <button id="followersButton" class="button button--sub">
+                Followers ${user.followers_count}
+            </button>
+            <button id="followingButton" class="button button--sub">
+                Following ${user.following_count}
+            </button>
+            <button id="watchButton" class="button button--sub">
                 Watched
+            </button>
+            <button id="likedButton" class="button button--sub">
+                Liked
             </button>
         </div>
 
@@ -91,8 +101,11 @@ const otherUser = (page, user) => {
         </div>
         <h1>${user.username}</h1>
         <div class="button__container">
-            <button id="watchButton">
+            <button id="watchButton" class="button button--sub">
                 Watched
+            </button>
+            <button id="likedButton" class="button button--sub">
+                Liked
             </button>
         </div>
 
@@ -110,6 +123,24 @@ const showWatchedMovies = async (watched_movies) => {
     `;
 
     watched_movies.forEach(async (movie, index) => {
+        if (index <= 10) {
+            let recourse = await fetchExternalMovie(movie.movie_id);
+            let movieCard = MovieCard(recourse);
+
+            document.querySelector(".profile__page__details__movies").append(movieCard);
+        }
+    });
+}
+
+// Liked Movies 
+const showLikedMovies = async (liked) => {
+    let container = document.querySelector(".profile__page__details");
+    container.innerHTML = `
+        <h2>Liked Movies</h2>
+        <div class="profile__page__details__movies"></div>
+    `;
+
+    liked.forEach(async (movie, index) => {
         if (index <= 10) {
             let recourse = await fetchExternalMovie(movie.movie_id);
             let movieCard = MovieCard(recourse);
@@ -187,6 +218,7 @@ export const logoutHandler = async () => {
     let response = await fetch("routes/authRoute.php?action=logout");
     let res = await response.json();
 
+    showNotification(res);
     clearUser();
 
     document.getElementById("header").innerHTML = "";

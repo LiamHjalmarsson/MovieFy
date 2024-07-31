@@ -36,6 +36,7 @@ class UserController
                 $user['followers_count'] = Follows::getFollowersCount($pdo, $userId);
                 $user['following_count'] = Follows::getFollowingCount($pdo, $userId);
                 $user["watched_movies"] = Movies::getUserWatched($pdo, $userId);
+                $user["liked_movies"] = Movies::getUserLiked($pdo, $userId);
 
                 sendJSON($user);
             } else {

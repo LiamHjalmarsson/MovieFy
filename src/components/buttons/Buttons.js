@@ -27,7 +27,7 @@ export const LeaveReviewButton = async (movie) => {
         if (reviewed) {
 
         } 
-            
+        
         let form = Form(movie);
         backdropContainer.appendChild(form);
 
@@ -105,8 +105,6 @@ export const GoToMovieButton = (movie) => {
 export const LikeMovieButton = async (movie) => {
     let status = await fetchUserMovieStatus(movie.id);
     let button = Button("button--like");
-
-    console.log(status);
 
     let buttonIcon = status.includes("recommended") ? `<i class="fa-solid fa-heart"></i>` : `<i class="fa-regular fa-heart"></i>`;
     button.innerHTML = buttonIcon;

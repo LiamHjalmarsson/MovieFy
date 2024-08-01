@@ -4,7 +4,7 @@ namespace Review;
 
 class Review
 {
-    public static function userAddReview($pdo, $user_id, $movie_id, $review, $rating)
+    public static function addReview($pdo, $user_id, $movie_id, $review, $rating)
     {
         $stmt = $pdo->prepare("INSERT INTO reviews (user_id, movie_id, review, rating) VALUES (:user_id, :movie_id, :review, :rating)");
         $stmt->bindParam(':user_id', $user_id);
@@ -15,6 +15,17 @@ class Review
         return $stmt->execute();
     }
 
+    public static function updateReview($pdo, $user_id, $movie_id, $review, $rating, $id)
+    {
+        $stmt = $pdo->prepare("UPDATE reviews SET review = :review, rating = :rating WHERE id = :id AND movie_id = :movie_id AND user_id = :user_id");
+        $stmt->bindParam(':review', $review);
+        $stmt->bindParam(':rating', $rating);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':movie_id', $movie_id);
+        $stmt->bindParam(':user_id', $user_id);
+
+        return $stmt->execute();
+    }
     public static function getMovieReviews($pdo, $movie_id)
     {
         $query = "SELECT reviews.*, users.username, users.avatar 
@@ -39,7 +50,7 @@ class Review
         $statement->bindParam(':user_id', $user_id);
         $statement->bindParam(':movie_id', $movie_id);
         $statement->execute();
-    
-        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+        return $statement->fetch(\PDO::FETCH_ASSOC);
     }
 }

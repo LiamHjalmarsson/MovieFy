@@ -24,11 +24,7 @@ export const LeaveReviewButton = async (movie) => {
         backdropContainer.classList.add("module__backdrop");
         document.getElementById("module").append(backdropContainer);
 
-        if (reviewed) {
-
-        } 
-        
-        let form = Form(movie);
+        let form = Form(movie, reviewed);
         backdropContainer.appendChild(form);
 
         backdropContainer.addEventListener("click", (event) => {
@@ -41,6 +37,7 @@ export const LeaveReviewButton = async (movie) => {
                 }, { once: true });
             }
         });
+
     });
 
     return button;
@@ -82,7 +79,7 @@ export const GoToMovieButton = (movie) => {
 
     button.addEventListener("click", async () => {
         let movieCard = document.querySelector(".movie__card-open");
-        
+
         window.history.pushState({}, "", `/${movie.title.replace(/\s+/g, '_')}`);
         await MoviePage(movie.id);
 

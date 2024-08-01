@@ -47,3 +47,10 @@
     margin: auto;
     width: fit-content;
 }
+
+.auth-form__span {
+    color: #da9916;
+    padding-bottom: 0.5rem;
+    cursor: pointer;
+    border-bottom: 1px solid #da9916;
+}

@@ -12,7 +12,10 @@ use ReviewController\ReviewController;
 
 switch ($_GET['action']) {
     case "addReview":
-        ReviewController::addReview($pdo);
+        ReviewController::addMovieReview($pdo);
+        break;
+    case "updateReview":
+        ReviewController::updateMovieReview($pdo);
         break;
     case "getMovieReviews":
         ReviewController::movieReviews($pdo);

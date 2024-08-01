@@ -9,7 +9,7 @@ const Register = () => {
             <input type="email" placeholder="Email" name="email" class="auth-form__input" />
             <input type="password" placeholder="Password" name="pwd" class="auth-form__input" />
             <p class="auth-form__p">
-                Already have a account <span> Log in! </span>
+                Already have a account <span class="auth-form__span"> Log in! </span>
             </p>
             <button type="submit" class="button button--sub auth-form__button">
                 Register

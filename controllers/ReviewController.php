@@ -10,7 +10,7 @@ use User\User;
 
 class ReviewController
 {
-    public static function addReview($pdo)
+    public static function addMovieReview($pdo)
     {
         $data = json_decode(file_get_contents('php://input'), true);
 
@@ -43,12 +43,27 @@ class ReviewController
                 sendJSON(["error" => $errors], 400);
             }
 
-            $result = Review::userAddReview($pdo, $user_id, $movie_id, $review, $rating);
+            Review::addReview($pdo, $user_id, $movie_id, $review, $rating);
 
             sendJSON(["success" => "Review posted"]);
         } catch (PDOException $e) {
             sendJSON(["error" => $e->getMessage()], 500);
         }
+    }
+
+    public static function updateMovieReview($pdo)
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $review = $data['review'];
+        $movie_id = $data['movie_id'];
+        $rating = $data['rating'];
+        $user_id = $_SESSION['user_id'];
+        $id = $data['review_id'];
+
+        Review::updateReview($pdo, $user_id, $movie_id, $review, $rating, $id);
+
+        sendJSON(["success" => "Review updated"]);
     }
 
     public static function movieReviews($pdo)

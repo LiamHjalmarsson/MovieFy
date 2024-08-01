@@ -36,3 +36,5 @@ CREATE TABLE recommended_movies (
     PRIMARY KEY (user_id),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+-- ADD REVEIWS TABEL ON HOSTINGER DB 

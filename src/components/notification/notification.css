@@ -46,3 +46,12 @@
 #success {
     border-color: rgb(231, 60, 60);
 }
+
+@media (max-width: 950px) {
+    .notification {
+        width: 90%;
+        overflow: hidden;
+        justify-content: center;
+        text-align: center;
+    }
+}

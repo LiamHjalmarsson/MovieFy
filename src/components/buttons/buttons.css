@@ -58,6 +58,13 @@
     white-space: nowrap;
 }
 
+@media (max-width: 950px) {
+    .button {
+        gap: 0.5rem;
+        padding: 1rem 1.5rem;
+    }
+}
+
 
 /* 
 .button--goTo i,

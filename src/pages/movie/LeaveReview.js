@@ -6,29 +6,13 @@ export const Form = (movie, reviewed) => {
     form.id = "reviewForm";
     form.classList.add("movie-form");
 
-    let reviewTitle = reviewed ? "Edit Review For" : "Review For";
-    let reviewText = reviewed ? reviewed.review : "";
     let selectedRating = reviewed ? reviewed.rating : 0;
 
-    form.innerHTML = `
-        <h3>
-            ${reviewTitle} <br> ${movie.title}
-        </h3>
-        <textarea id="reviewText" placeholder="Write your review here..." class="movie-form__textfield">${reviewText}</textarea>
-        <div class="movie-form__stars">
-            ${[1, 2, 3, 4, 5].map(i => `
-                <span class="movie-form__star" data-rating="${i}">&#9733;</span>
-            `).join('')}
-        </div>
-        <div class="movie-form__buttons">
-            <button id="cancelReview" class="button--sub button" type="button">
-                Cancel
-            </button>
-            <button id="${reviewed ? "updateReview" : "submitReview"}" class="button--sub button" type="submit">
-                ${reviewed ? "Update" : "Submit"}
-            </button>
-        </div>
-    `;
+    if (reviewed) {
+        formUpdateReview(form, movie, reviewed);
+    } else {
+        formAddReview(form, movie);
+    }
 
     updateStars(form, selectedRating);
 
@@ -39,15 +23,57 @@ export const Form = (movie, reviewed) => {
         });
     });
 
-    if (reviewed) {
-        form.querySelector("#updateReview").addEventListener("click", (e) => updateReview(e, movie, selectedRating, reviewed));
-    } else {
-        form.querySelector("#submitReview").addEventListener("click", (e) => submitReview(e, movie, selectedRating));
-    }
-
     form.querySelector("#cancelReview").addEventListener("click", closeForm);
 
     return form;
+}
+
+const formAddReview = (form, movie) => {
+    form.innerHTML = `
+        <h3>
+            Review For <br> ${movie.title}
+        </h3>
+        <textarea id="reviewText" placeholder="Write your review here..." class="movie-form__textfield"></textarea>
+        <div class="movie-form__stars">
+            ${[1, 2, 3, 4, 5].map(i => `
+                <span class="movie-form__star" data-rating="${i}">&#9733;</span>
+            `).join('')}
+        </div>
+        <div class="movie-form__buttons">
+            <button id="cancelReview" class="button--sub button" type="button">
+                Cancel
+            </button>
+            <button id="submitReview" class="button--sub button" type="submit">
+                Submit
+            </button>
+        </div>
+    `;
+
+    form.querySelector("#submitReview").addEventListener("click", (e) => submitReview(e, movie, selectedRating));
+}
+
+const formUpdateReview = (form, movie, reviewed) => {
+    form.innerHTML = `
+        <h3>
+            Edit Review For <br> ${movie.title}
+        </h3>
+        <textarea id="reviewText" placeholder="Write your review here..." class="movie-form__textfield">${reviewed.review}</textarea>
+        <div class="movie-form__stars">
+            ${[1, 2, 3, 4, 5].map(i => `
+                <span class="movie-form__star" data-rating="${i}">&#9733;</span>
+            `).join('')}
+        </div>
+        <div class="movie-form__buttons">
+            <button id="cancelReview" class="button--sub button" type="button">
+                Cancel
+            </button>
+            <button id="updateReview" class="button--sub button" type="submit">
+                Update
+            </button>
+        </div>
+    `;
+
+    form.querySelector("#updateReview").addEventListener("click", (e) => updateReview(e, movie, selectedRating, reviewed));
 }
 
 const submitReview = async (e, movie, selectedRating) => {
@@ -97,7 +123,7 @@ const updateReview = async (e, movie, selectedRating, reviewed) => {
     let result = await response.json();
 
     console.log(result);
-    
+
     showNotification(result);
 
     if (response.ok) {

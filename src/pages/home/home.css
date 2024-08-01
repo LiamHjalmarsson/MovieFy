@@ -95,3 +95,32 @@
 .arrow:hover {
     background: rgba(0, 0, 0, 0.7);
 }
+
+@media (max-width: 950px) {
+    .home {
+        padding: 1rem;
+    }
+
+    .home__movies-container {
+        padding: 0;
+    }
+
+    .home__movies-title {
+        margin-bottom: 1rem;
+    }
+    
+    .home__movies-title {
+        font-size: large;
+        padding-left: 0;
+    }
+
+    .home__movies-box {
+        gap: 1rem;
+    }
+
+    .arrow {
+        width: 30px;
+        height: 30px;
+        padding: 0.5rem;
+    }
+}

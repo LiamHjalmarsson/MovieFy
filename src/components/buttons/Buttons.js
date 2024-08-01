@@ -80,12 +80,13 @@ export const GoToMovieButton = (movie) => {
     button.addEventListener("click", async () => {
         let movieCard = document.querySelector(".movie__card-open");
 
-        window.history.pushState({}, "", `/${movie.title.replace(/\s+/g, '_')}`);
-        await MoviePage(movie.id);
-
         if (movieCard) {
             movieCard.classList.add("movie__card__slideOut");
         }
+        
+        window.history.pushState({}, "", `/${movie.title.replace(/\s+/g, '_')}`);
+        await MoviePage(movie.id);
+
 
         if (module) {
             document.querySelector(".module__backdrop").classList.add("module__backdropClose");

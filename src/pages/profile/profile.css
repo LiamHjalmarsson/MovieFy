@@ -1,5 +1,6 @@
 .profile {
-    padding: 12rem 6rem;
+    margin-top: 12rem;
+    padding: 0 1rem;
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -60,16 +61,17 @@
 .profile__page__user {
     text-align: center;
     display: flex;
-    gap: 2rem;
-    position: relative;
     justify-content: center;
     align-items: center;
     text-transform: capitalize;
+    position: relative;
+    width: 100%;
+    max-width: 800px;
 }
 
 .profile__page__user>i {
     position: absolute;
-    right: -10rem;
+    right: 0;
     font-weight: 700;
 }
 
@@ -122,4 +124,39 @@
     gap: 2rem;
     padding: 2rem;
     width: 80%;
+}
+
+
+@media (max-width: 950px) {
+    .profile {
+        gap: 1rem;
+    }
+
+    .profile__page__avatar img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .profile__page__avatar__edith,
+    .profile__page__avatar__form>label {
+        padding: 0.5rem;
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+
+    .profile .button__container  button {
+        width: 45%;
+    }
+
+    .profile__page__details {
+        margin-top: 1rem;
+    }
+
+    .profile__page__details__movies {
+        margin-top: 1rem;
+        gap: 1rem;
+        padding: 1rem;
+        width: 100%;
+    }
 }

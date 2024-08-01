@@ -28,6 +28,10 @@ const OpenMovie = async (movie) => {
     container.classList.add("movie__card-open");
     backdrop.append(container);
 
+    let closeButton = document.createElement('button');
+    closeButton.classList.add("movie__card-close");
+    closeButton.innerHTML = '&times;';
+
     let video = await fetchExternalMovieVideo(movie.id);
 
     if (video) {
@@ -75,7 +79,7 @@ const Title = (movie) => {
 
     title.innerHTML = `
         <div class="movie__card-heading__title">
-            <h1>${movie.title}</h1>
+            <h1 class="movie__card-heading__h1">${movie.title}</h1>
             <p class="movie__card-heading__release">${movie.release_date}</p>
         </div>
         <div class="movie__card-heading__buttons">

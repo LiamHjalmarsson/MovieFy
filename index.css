@@ -26,3 +26,9 @@ i {
     gap: 2rem;
     flex-wrap: wrap;
 }
+
+@media (max-width: 950px) {
+    .button__container {
+        gap: 1rem;
+    }
+}

@@ -74,6 +74,12 @@
     max-width: 600px;
     line-height: 1.5;
     text-align: center;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Limit to 4 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .banners__banner-genres {
@@ -101,5 +107,35 @@
     to {
         transform: translateX(0);
         opacity: 1;
+    }
+}
+
+@media (max-width: 950px) {
+    .banners__banner-details {
+        width: 90%;
+        gap: 1rem;
+    }
+
+    .banners__banner-details-content  {
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .banners__banner-title, .banners__banner-release-date {
+        font-size: larger;
+    }
+
+    .banners__banner-overview {
+        font-size: medium;
+    }
+
+    .banners__banner-genres {
+        gap: 1rem;
+        font-size: medium;
+        justify-content: center;
+    }
+
+    .banners__banner-poster  {
+        height: 200px;
     }
 }

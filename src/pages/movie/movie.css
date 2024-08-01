@@ -9,7 +9,7 @@
 /* Details styling */
 .movie-details {
     padding: 2rem;
-    flex: 2;
+    /* flex: 2; */
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -198,4 +198,42 @@
 
 .movie__slideInRight {
     animation: slideInRight 300ms ease-out forwards;
+}
+
+
+@media (max-width: 950px) {
+    .movie {
+        gap: 1rem;
+    }
+
+    .movie-details {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .movie-details__title {
+        font-size: large;
+    }
+
+    .details__card {
+        padding: 0.5rem;
+    }
+
+    .movie-details__images {
+        gap: 1rem;
+    }
+
+    .movie-details__image {
+        flex-grow: 1;
+    }
+
+    .movie-similarMovies {
+        padding: 1rem;
+    }
+
+    .movie-reviews {
+        gap: 1rem;
+        padding: 1rem;
+        min-width: 300px;
+    }
 }

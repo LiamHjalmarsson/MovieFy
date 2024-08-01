@@ -33,13 +33,13 @@ let navLinks = [
             await MoviesPage("upcoming");
         }
     },
-    {
-        path: "/users",
-        click: async () => {
-            window.history.pushState({}, "", `/users`);
-            await UsersPage("upcoming");
-        }
-    }
+    // {
+    //     path: "/users",
+    //     click: async () => {
+    //         window.history.pushState({}, "", `/users`);
+    //         await UsersPage("upcoming");
+    //     }
+    // }
 ];
 
 const Header = () => {

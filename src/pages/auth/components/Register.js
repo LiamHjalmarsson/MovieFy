@@ -11,7 +11,7 @@ const Register = () => {
             <p class="auth-form__p">
                 Already have a account <span> Log in! </span>
             </p>
-            <button type="submit" class="button__primary auth-form__button">
+            <button type="submit" class="button button--sub auth-form__button">
                 Register
             </button>
         </form>

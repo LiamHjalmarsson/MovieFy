@@ -10,7 +10,7 @@ const Login = () => {
             <p class="auth-form__p">
                 Don't have a account <span> sign up! </span>
             </p>
-            <button type="submit" class="button__primary auth-form__button">
+            <button type="submit" class="button button--sub auth-form__button">
                 Login
             </button>
         </form>

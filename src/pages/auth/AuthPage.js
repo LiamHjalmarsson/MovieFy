@@ -21,7 +21,6 @@ const AuthPage = () => {
 
     app.appendChild(auth);
 
-    setupFormListeners();
     registerHandler();
     loginHandler();
 
@@ -42,9 +41,6 @@ const AuthPage = () => {
         }
 
     });
-}
-
-const setupFormListeners = () => {
 }
 
 const loginHandler = () => {
@@ -105,7 +101,7 @@ const registerHandler = () => {
         handleResponse(response, recourse);
 
         if (response.ok) {
-            document.querySelector('.login').scrollIntoView({ behavior: 'smooth' });
+            document.querySelector('.auth-login').scrollIntoView({ behavior: 'smooth' });
             showNotification(recourse);
         }
     });
@@ -121,6 +117,5 @@ const handleResponse = (response, recourse) => {
         showNotification(recourse);
     }
 }
-
 
 export default AuthPage;

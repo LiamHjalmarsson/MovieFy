@@ -1,3 +1,4 @@
+import Header from "../../components/layouts/header/Header.js";
 import MovieCard from "../../components/movie/MovieCard.js";
 import showNotification from "../../components/notification/Notification.js";
 import { clearUser, getUser, setUser } from "../../state/userState.js";
@@ -171,6 +172,9 @@ const avatarUpdateHandler = async (e, user) => {
                 document.querySelector(".profile__page__avatar img").src = result.user.avatar;
                 user.avatar = result.user.avatar;
                 setUser(user, userToken);
+
+                document.getElementById("header").innerHTML = "";
+                Header();
             } else {
                 console.error("Failed to update avatar:", result.error);
             }
@@ -208,9 +212,11 @@ const edithUserHandler = (e, user) => {
         let recourse = await response.json();
         console.log(recourse);
 
+        setUser(recourse.user, userToken);
         showNotification(recourse);
 
-        // setUser(recourse.user, userToken);
+        document.getElementById("header").innerHTML = "";
+        Header()
     });
 }
 

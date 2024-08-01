@@ -140,8 +140,6 @@ class UserController
                 User::updateUserWithoutPassword($pdo, $userId, $username, $email);
             }
 
-            $user = User::getUserById($pdo, $userId);
-            
             sendJSON(["success" => "Updated user", "user" => $user]);
         } catch (PDOException $e) {
             sendJSON(["errors" => $e->getMessage()], 500);

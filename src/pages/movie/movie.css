@@ -64,12 +64,10 @@
 .movie-container {
     display: flex;
     width: 100%;
-    min-height: 700px;
     gap: 2rem;
     justify-content: center;
     flex-wrap: wrap;
-    padding: 2rem;
-    max-width: 1500px;
+    max-width: 1300px;
 }
 
 .movie-similarMovies {

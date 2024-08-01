@@ -18,8 +18,12 @@ export const Form = (movie) => {
             `).join('')}
         </div>
         <div class="movie-form__buttons">
-            <button id="cancelReview" class="button__primary" type="button">Cancel</button>
-            <button id="submitReview" class="button__primary" type="submit">Submit</button>
+            <button id="cancelReview" class="button--sub button" type="button">
+                Cancel
+            </button>
+            <button id="submitReview" class="button--sub button" type="submit">
+                Submit
+            </button>
         </div>
     `;
 

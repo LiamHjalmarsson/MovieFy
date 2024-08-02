@@ -11,7 +11,6 @@ const Profile = async (id) => {
     let { user } = getUser();
     let recourse = await fetchUser(id);
 
-    console.log(recourse);
     let app = document.getElementById("app");
     app.innerHTML = "";
 
@@ -116,7 +115,7 @@ const otherUser = (page, user) => {
 }
 
 // Watched Movies 
-const showWatchedMovies = async (watched_movies) => {
+export const showWatchedMovies = async (watched_movies) => {
     let container = document.querySelector(".profile__page__details");
     container.innerHTML = `
         <h2>Watched Movies</h2>
@@ -134,7 +133,7 @@ const showWatchedMovies = async (watched_movies) => {
 }
 
 // Liked Movies 
-const showLikedMovies = async (liked) => {
+export const showLikedMovies = async (liked) => {
     let container = document.querySelector(".profile__page__details");
     container.innerHTML = `
         <h2>Liked Movies</h2>

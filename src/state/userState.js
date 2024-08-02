@@ -23,4 +23,29 @@ const getUser = () => {
     return userState;
 };
 
-export { setUser, clearUser, getUser };
+const updateUserMovies = (movieId, statusType, action) => {
+    if (!userState.user) return;
+
+    let { user } = userState;
+
+    if (action === "add") {
+
+        if (!user[statusType]) {
+            user[statusType] = [];
+        }
+
+        user[statusType].push({ movie_id: movieId });
+    } else if (action === "remove") {
+
+        if (user[statusType]) {
+            user[statusType] = user[statusType].filter(movie => movie.movie_id !== movieId);
+        }
+
+    }
+
+    setUser(user, userState.userToken);
+    console.log(userState);
+};
+
+
+export { setUser, clearUser, getUser, updateUserMovies };

@@ -1,5 +1,6 @@
 import { Form } from "../../pages/movie/LeaveReview.js";
 import MoviePage from "../../pages/movie/MoviePage.js";
+import { updateUserMovies } from "../../state/userState.js";
 import { UserStatusMovieHandler } from "../../utils/events.js";
 import { fetchReview, fetchUserMovieStatus } from "../../utils/internalFetch.js";
 import showNotification from "../notification/Notification.js";
@@ -58,6 +59,7 @@ export const WatchLaterButton = async (movie) => {
             showNotification({ success: movie.title + " " + result.success });
 
             status.splice(status.indexOf("watch_later"), 1);
+            updateUserMovies(movie.id, "watched_movies", "remove");
         } else {
             let result = await UserStatusMovieHandler(movie.id, "watch_later", "add");
 
@@ -65,6 +67,7 @@ export const WatchLaterButton = async (movie) => {
 
             showNotification({ success: movie.title + " " + result.success });
             status.push("watch_later");
+            updateUserMovies(movie.id, "watched_movies", "add");
         }
     });
 
@@ -83,7 +86,7 @@ export const GoToMovieButton = (movie) => {
         if (movieCard) {
             movieCard.classList.add("movie__card__slideOut");
         }
-        
+
         window.history.pushState({}, "", `/${movie.title.replace(/\s+/g, '_')}`);
         await MoviePage(movie.id);
 
@@ -103,24 +106,25 @@ export const GoToMovieButton = (movie) => {
 export const LikeMovieButton = async (movie) => {
     let status = await fetchUserMovieStatus(movie.id);
     let button = Button("button--like");
-
+    
     let buttonIcon = status.includes("recommended") ? `<i class="fa-solid fa-heart"></i>` : `<i class="fa-regular fa-heart"></i>`;
     button.innerHTML = buttonIcon;
-
+    
     button.addEventListener("click", async () => {
         if (status.includes("recommended")) {
             let result = await UserStatusMovieHandler(movie.id, "recommended", "remove");
             button.innerHTML = `<i class="fa-regular fa-heart"></i>`;
-
+            
             showNotification({ success: movie.title + " " + result.success });
-
             status.splice(status.indexOf("recommended"), 1);
+            updateUserMovies(movie.id, "recommended", "remove");
         } else {
             let result = await UserStatusMovieHandler(movie.id, "recommended", "add");
             button.innerHTML = `<i class="fa-solid fa-heart"></i>`;
-
+            
             showNotification({ success: movie.title + " " + result.success });
             status.push("recommended");
+            updateUserMovies(movie.id, "recommended", "add");
         }
     });
 

@@ -47,7 +47,7 @@ class MoviesController
             
             $results = Movies::addMovieStatus($pdo, $user_id, $movie_id, $status);
             
-            sendJSON(["success" => "have been added!"]);
+            sendJSON(["success" => "have been added!", $results]);
         } catch (PDOException $e) {
             sendJSON(["error" => $e->getMessage()], 500);
         }
@@ -82,7 +82,7 @@ class MoviesController
             
             $results = Movies::removeMovieStatus($pdo, $user_id, $movie_id, $status);
 
-            sendJSON(["success" => "Movie have been removed successfully"]);
+            sendJSON(["success" => "Movie have been removed successfully", $results]);
         } catch (PDOException $e) {
             sendJSON(["error" => $e->getMessage()], 500);
         }

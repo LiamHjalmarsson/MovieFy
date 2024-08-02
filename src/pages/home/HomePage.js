@@ -1,7 +1,8 @@
 import Banners from "../../components/banner/Banners.js";
 import Loading from "../../components/loading/Loading.js";
 import MovieCard from "../../components/movie/MovieCard.js";
-import { fetchExternalMovies } from "../../utils/externalFetch.js";
+import { getUser } from "../../state/userState.js";
+import { fetchExternalMovie, fetchExternalMovies } from "../../utils/externalFetch.js";
 import { fetchFollowing, fetchUsers } from "../../utils/internalFetch.js";
 import { slide } from "../../utils/slide.js";
 import Profile from "../profile/Profile.js";
@@ -9,6 +10,8 @@ import Profile from "../profile/Profile.js";
 const HomePage = async () => {
     let app = document.getElementById('app');
     app.innerHTML = "";
+
+    let { user } = getUser();
 
     // let loading = Loading();
 
@@ -30,11 +33,13 @@ const HomePage = async () => {
     let nowPlaying = MovieRow("now_playing", nowPlayingMovies);
     let topRated = MovieRow("top_rated", topRatedMovies);
 
+    let watched_movies = userMovieRow("watched movies", user.watched_movies);
+
     if (followingsBar) {
         home.appendChild(followingsBar);
     }
 
-    home.append(upcoming, nowPlaying, topRated);
+    home.append(watched_movies, upcoming, nowPlaying, topRated);
 
     // setTimeout(() => {
     //     loading.remove();
@@ -109,6 +114,39 @@ const MovieRow = (id, movies) => {
     movies.forEach(movie => {
         let movieCard = MovieCard(movie);
         movieBox.appendChild(movieCard);
+    });
+
+    return movieRow;
+}
+
+const userMovieRow = (id, movies) => {
+    let movieRow = document.createElement('div');
+    movieRow.classList.add("home__movies");
+
+    let title = document.createElement('h2');
+    title.classList.add("home__movies-title");
+
+    title.textContent = id;
+
+    let movieContainer = document.createElement('div');
+    movieContainer.classList.add("home__movies-container");
+
+    let movieBox = document.createElement('div');
+    movieBox.classList.add("home__movies-box");
+
+    let leftArrow = Arrow('left', () => slide(movieBox, 'left'));
+    let rightArrow = Arrow('right', () => slide(movieBox, 'right'));
+
+    movieContainer.append(leftArrow, movieBox, rightArrow);
+    movieRow.append(title, movieContainer);
+
+    movies.forEach(async (movie, index) => {
+        if (index <= 20) {
+            let recourse = await fetchExternalMovie(movie.movie_id);
+            let movieCard = MovieCard(recourse);
+
+            movieBox.append(movieCard);
+        }
     });
 
     return movieRow;
